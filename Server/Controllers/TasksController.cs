@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +11,9 @@ namespace webapi.Controllers
     {
         // GET api/tasks/1
         [HttpGet("1")]
-        public ActionResult<string[]> Task1()
+        public async Task<ActionResult<string[]>> Task1()
         {
+            await Task.Delay(TimeSpan.FromSeconds(12));
             return new string[] { "apple", "orange" };
         }
 
@@ -25,18 +27,17 @@ namespace webapi.Controllers
 
         // GET api/tasks/3
         [HttpGet("3")]
-        public ActionResult<string> Task3()
+        public async Task<ActionResult<string>> Task3()
         {
-            return "value";
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            return "66";
         }
 
         // GET api/tasks/4
         [HttpGet("4")]
-        public async Task<IActionResult> Task4()
+        public IActionResult Task4()
         {
-            await Task.Delay(TimeSpan.FromSeconds(5));
-            return Ok();
+            return new StatusCodeResult(500);
         }
-
     }
 }
