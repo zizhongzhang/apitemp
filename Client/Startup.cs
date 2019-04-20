@@ -20,14 +20,19 @@ namespace Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<HeaderLogger>();
+            services.AddTransient<ResponseHandler>();
             services
                 .AddHttpClient<ApiServiceClient>()
+                .AddHttpMessageHandler<HeaderLogger>()
+                .AddHttpMessageHandler<ResponseHandler>()
                 .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
                 {
                     TimeSpan.FromMilliseconds(100),
                     TimeSpan.FromMilliseconds(200),
                     TimeSpan.FromMilliseconds(400),
-                }));
+                }))
+                ;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

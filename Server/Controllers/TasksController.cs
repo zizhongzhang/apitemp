@@ -13,7 +13,7 @@ namespace webapi.Controllers
         [HttpGet("1")]
         public async Task<ActionResult<string[]>> Task1()
         {
-            await Task.Delay(TimeSpan.FromSeconds(12));
+            await Task.Delay(TimeSpan.FromSeconds(3));
             return new string[] { "apple", "orange" };
         }
 
