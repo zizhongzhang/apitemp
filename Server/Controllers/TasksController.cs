@@ -29,7 +29,7 @@ namespace webapi.Controllers
         [HttpGet("3")]
         public async Task<ActionResult<string>> Task3()
         {
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(15));
             return "66";
         }
 

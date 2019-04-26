@@ -11,6 +11,12 @@ namespace Client
             _httpClient = httpClient;
         }
 
+        public async Task<string> GetValue()
+        {
+            var task = await _httpClient.GetAsync("https://localhost:5001/api/tasks/3");
+            return await task.Content.ReadAsStringAsync();
+        }
+
         public async Task<string[]> GetValues()
         {
             var task1 = _httpClient.GetAsync("https://localhost:5001/api/tasks/1");

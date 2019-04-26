@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
+using Polly.Retry;
+using Polly.Timeout;
 
 namespace Client
 {
@@ -26,12 +29,13 @@ namespace Client
                 .AddHttpClient<ApiServiceClient>()
                 .AddHttpMessageHandler<HeaderLogger>()
                 .AddHttpMessageHandler<ResponseHandler>()
-                .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+                .AddTransientHttpErrorPolicy(builder => builder.Or<TimeoutRejectedException>().WaitAndRetryAsync(new[]
                 {
                     TimeSpan.FromMilliseconds(100),
                     TimeSpan.FromMilliseconds(200),
                     TimeSpan.FromMilliseconds(400),
                 }))
+                .AddTimeoutPolicy()
                 ;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
