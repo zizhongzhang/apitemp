@@ -23,6 +23,28 @@ namespace Client.Controllers
         }
     }
 
+    public struct Coords
+    {
+        public string x, y;
+
+        public Coords(string p1, string p2)
+        {
+            x = p1;
+            y = p2;
+        }
+    }
+
+    public class CoordClass
+    {
+        public string x, y;
+
+        public CoordClass(string p1, string p2)
+        {
+            x = p1;
+            y = p2;
+        }
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -49,9 +71,12 @@ namespace Client.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            CoordClass coordClass;
+            Coords coord;
+            coord = new Coords();            
+            return Ok( coord.x);
         }
     }
 }

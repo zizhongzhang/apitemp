@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using webapi.Filters;
 
 namespace webapi.Controllers
 {
@@ -9,10 +10,11 @@ namespace webapi.Controllers
     public class TasksController : ControllerBase
     {
         // GET api/tasks/1
+        [ServiceFilter(typeof(MyAsyncActionFilter))]
         [HttpGet("1")]
         public ActionResult<string[]> Task1()
         {
-            return new string[] { "apple", "orange" };
+            return new[] { "apple", "orange" };
         }
 
         // GET api/tasks/2
