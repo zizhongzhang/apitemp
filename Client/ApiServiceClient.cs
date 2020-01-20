@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Client
@@ -19,7 +20,7 @@ namespace Client
             var task4 = _httpClient.GetAsync("https://localhost:5001/api/tasks/4");
 
             var result = await Task.WhenAll(task1, task2, task3, task4);
-            return await result[0].Content.ReadAsAsync<string[]>();
+            return JsonSerializer.Deserialize<string[]>(await result[0].Content.ReadAsStringAsync());
         }
     }
 }

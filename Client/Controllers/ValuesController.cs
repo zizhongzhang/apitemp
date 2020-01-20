@@ -19,6 +19,7 @@ namespace Client.Controllers
                     Content = new StringContent("You must supply an API key header called X-API-KEY")
                 };
             }
+            return response;
         }
     }
 

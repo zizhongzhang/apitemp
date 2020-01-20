@@ -65,20 +65,5 @@ namespace Client
         public OrganisationResponse(int statusCode, IDictionary<string, IEnumerable<string>> errors) : base(statusCode, errors)
         {
         }
-        public static readonly OrganisationResponse Unauthorized = ApiResponse<Organisation>.Unauthorized;
     }
-
-    public class HttpClient
-    {
-        public OrganisationResponse GetOrganisationResponse()
-        {
-            var response = new HttpResponseMessage();
-            if (response.IsSuccessStatusCode)
-            {
-                return new OrganisationResponse(new Organisation());
-            }
-            return ApiResponse<Organisation>.Unauthorized;
-        }
-    }
-
 }
